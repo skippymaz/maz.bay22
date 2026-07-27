@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Landing Page</title>
+    <!-- Google Fonts for Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;600&family=Google+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #002050; /* Deep blue theme matching reference */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 60px 20px;
+            overflow-x: hidden;
+        }
+
+        /* --- Google Section Styles --- */
+        .search-container {
+            width: 100%;
+            max-width: 680px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 50px;
+        }
+
+        .google-logo {
+            font-family: 'Google Sans', sans-serif;
+            font-size: 80px;
+            font-weight: 400;
+            letter-spacing: -2px;
+            color: #ffffff;
+            margin-bottom: 30px;
+            user-select: none;
+        }
+
+        .search-bar-wrapper {
+            position: relative;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 28px;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            height: 52px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .search-bar-wrapper:focus-within {
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .search-bar-wrapper .search-icon {
+            color: #5f6368;
+            font-size: 18px;
+            margin-right: 14px;
+        }
+
+        .search-input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            color: #202124;
+            background: transparent;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .search-input::placeholder {
+            color: #5f6368;
+        }
+
+        .search-actions {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .search-action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #5f6368;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ai-mode-btn {
+            background-color: #f1f3f4;
+            color: #202124;
+            padding: 6px 14px;
+            border-radius: 16px;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background-color 0.2s;
+            text-decoration: none;
+        }
+
+        .ai-mode-btn:hover {
+            background-color: #e2e5e8;
+        }
+
+        /* --- Windows 8 Metro Style Tiles --- */
+        .metro-section {
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .metro-title {
+            font-size: 20px;
+            font-weight: 300;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
+            color: #e0e0e0;
+        }
+
+        .metro-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            grid-auto-rows: 130px;
+            grid-gap: 12px;
+        }
+
+        .tile {
+            position: relative;
+            background-color: #0078d7; /* Windows Blue default */
+            text-decoration: none;
+            color: #ffffff;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border: 2px solid transparent;
+            transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .tile:hover {
+            transform: scale(1.03);
+            border-color: #ffffff;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            z-index: 2;
+        }
+
+        .tile:active {
+            transform: scale(0.98);
+        }
+
+        /* Tile Sizes */
+        .tile.wide {
+            grid-column: span 2;
+        }
+
+        .tile.large {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        /* Tile Contents */
+        .tile-icon {
+            font-size: 26px;
+            align-self: flex-start;
+        }
+
+        .tile.large .tile-icon {
+            font-size: 40px;
+        }
+
+        .tile-label {
+            font-size: 14px;
+            font-weight: 600;
+            word-break: break-word;
+        }
+
+        .tile.large .tile-label {
+            font-size: 18px;
+        }
+
+        /* Metro Color Palette Variants */
+        .bg-blue { background-color: #0078d7; }
+        .bg-teal { background-color: #00aba9; }
+        .bg-purple { background-color: #603cba; }
+        .bg-magenta { background-color: #d81b60; }
+        .bg-orange { background-color: #da532c; }
+        .bg-green { background-color: #107c10; }
+        .bg-dark { background-color: #2d2d2d; }
+        .bg-red { background-color: #e51400; }
+
+        /* Responsive adjustments */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .search-container, .metro-section {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Google Search & URL Bar Component -->
+    <div class="search-container">
+        <div class="google-logo">Google</div>
+        <form class="search-bar-wrapper" action="https://www.google.com/search" method="get" id="searchForm">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" class="search-input" name="q" placeholder="Search Google or type a URL" autocomplete="off" autofocus id="searchInput">
+            <div class="search-actions">
+                <button type="button" class="search-action-btn" title="Search by Voice" onclick="alert('Voice search simulation')">
+                    <i class="fa-solid fa-microphone"></i>
+                </button>
+                <button type="button" class="search-action-btn" title="Search by Image" onclick="alert('Lens search simulation')">
+                    <i class="fa-solid fa-camera"></i>
+                </button>
+                <a href="https://gemini.google.com" target="_blank" class="ai-mode-btn">
+                    <i class="fa-solid fa-sparkles"></i> AI Mode
+                </a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Windows 8 Metro Style Links Grid -->
+    <div class="metro-section">
+        <div class="metro-title">Pinned Favorites</div>
+        <div class="metro-grid">
+            
+            <!-- Tile 1: Wide Tile -->
+            <a href="https://github.com" target="_blank" class="tile wide bg-dark">
+                <i class="fa-brands fa-github tile-icon"></i>
+                <span class="tile-label">GitHub Repositories</span>
+            </a>
+
+            <!-- Tile 2: Standard Tile -->
+            <a href="https://reddit.com" target="_blank" class="tile bg-orange">
+                <i class="fa-brands fa-reddit-alien tile-icon"></i>
+                <span class="tile-label">Reddit</span>
+            </a>
+
+            <!-- Tile 3: Standard Tile -->
+            <a href="https://youtube.com" target="_blank" class="tile bg-red">
+                <i class="fa-brands fa-youtube tile-icon"></i>
+                <span class="tile-label">YouTube</span>
+            </a>
+
+            <!-- Tile 4: Large Live Tile Block -->
+            <a href="https://mail.google.com" target="_blank" class="tile large bg-teal">
+                <i class="fa-solid fa-envelope tile-icon"></i>
+                <span class="tile-label">Gmail Inbox &amp; Workspace Mail</span>
+            </a>
+
+            <!-- Tile 5: Standard Tile -->
+            <a href="https://wikipedia.org" target="_blank" class="tile bg-blue">
+                <i class="fa-solid fa-globe tile-icon"></i>
+                <span class="tile-label">Wikipedia</span>
+            </a>
+
+            <!-- Tile 6: Standard Tile -->
+            <a href="https://news.google.com" target="_blank" class="tile bg-purple">
+                <i class="fa-solid fa-newspaper tile-icon"></i>
+                <span class="tile-label">Google News</span>
+            </a>
+
+            <!-- Tile 7: Wide Tile -->
+            <a href="https://netflix.com" target="_blank" class="tile wide bg-magenta">
+                <i class="fa-solid fa-tv tile-icon"></i>
+                <span class="tile-label">Netflix Streaming</span>
+            </a>
+
+            <!-- Tile 8: Standard Tile -->
+            <a href="https://chatgpt.com" target="_blank" class="tile bg-green">
+                <i class="fa-solid fa-brain tile-icon"></i>
+                <span class="tile-label">ChatGPT</span>
+            </a>
+
+        </div>
+    </div>
+
+    <script>
+        /* Smart Router for the Input Bar: If user enters a direct URL instead of search keywords, navigate directly */
+        const searchForm = document.getElementById('searchForm');
+        const searchInput = document.getElementById('searchInput');
+
+        searchForm.addEventListener('submit', function(e) {
+            const query = searchInput.value.trim();
+            // Basic regex pattern check for URL-like inputs (e.g., site.com, http://...)
+            const urlPattern = /^(https?:\/\/)?([\w.-]+)+(:[\d]+)?(\/([\w/_.]*(\?\S*)?)?)?$/i;
+            
+            if (urlPattern.test(query) && !query.includes(' ')) {
+                e.preventDefault();
+                let finalUrl = query;
+                if (!/^https?:\/\//i.test(finalUrl)) {
+                    finalUrl = 'https://' + finalUrl;
+                }
+                window.location.href = finalUrl;
+            }
+        });
+    </script>
+</body>
+</html>
