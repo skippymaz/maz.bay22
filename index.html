@@ -20,8 +20,53 @@
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
-            padding: 60px 20px;
+            padding: 40px 20px;
             overflow-x: hidden;
+        }
+
+        /* --- Tickers Container --- */
+        .tickers-wrapper {
+            width: 100%;
+            max-width: 680px;
+            display: flex;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .ticker-box {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 10px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            backdrop-filter: blur(5px);
+        }
+
+        .ticker-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .ticker-label {
+            color: #a0aec0;
+            font-weight: 500;
+        }
+
+        .ticker-value {
+            color: #ffffff;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .weather-icon {
+            font-size: 16px;
         }
 
         /* --- Google Section Styles --- */
@@ -200,7 +245,7 @@
             padding: 16px;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: flex-end;
             border: 2px solid transparent;
             transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
             overflow: hidden;
@@ -229,17 +274,6 @@
         }
 
         /* Tile Contents */
-        .tile-icon svg {
-            width: 28px;
-            height: 28px;
-            fill: currentColor;
-        }
-
-        .tile.large .tile-icon svg {
-            width: 40px;
-            height: 40px;
-        }
-
         .tile-label {
             font-size: 14px;
             font-weight: 600;
@@ -268,6 +302,24 @@
 </head>
 <body>
 
+    <!-- Tickers Bar (Bitcoin + Adelaide Weather) -->
+    <div class="tickers-wrapper">
+        <!-- Bitcoin Ticker -->
+        <div class="ticker-box">
+            <div class="ticker-item">
+                <span class="ticker-label">BTC / AUD:</span>
+                <span class="ticker-value" id="btcPrice">Loading...</span>
+            </div>
+        </div>
+        <!-- Adelaide Weather Ticker -->
+        <div class="ticker-box">
+            <div class="ticker-item">
+                <span class="ticker-label">Adelaide:</span>
+                <span class="ticker-value" id="weatherInfo">Loading...</span>
+            </div>
+        </div>
+    </div>
+
     <!-- Google Search & URL Bar Component -->
     <div class="search-container">
         <div class="google-logo">Google</div>
@@ -289,7 +341,7 @@
         </form>
     </div>
 
-    <!-- Tab Buttons (Work is default active) -->
+    <!-- Tab Buttons -->
     <div class="tabs-container">
         <button class="tab-btn" onclick="switchTab('personal', this)">Personal</button>
         <button class="tab-btn active" onclick="switchTab('work', this)">Work</button>
@@ -299,31 +351,24 @@
     <div id="personal" class="metro-section">
         <div class="metro-grid">
             <a href="https://youtube.com" class="tile bg-red">
-                <div class="tile-icon"><svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></div>
                 <span class="tile-label">YouTube</span>
             </a>
             <a href="https://reddit.com" class="tile bg-orange">
-                <div class="tile-icon"><svg viewBox="0 0 24 24"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.221.688-.356 1.101-.356a1.85 1.85 0 0 1 1.85 1.85c0 1.023-.827 1.85-1.85 1.85-.924 0-1.688-.686-1.823-1.573-1.196.671-2.784 1.078-4.532 1.125l-.898 4.195c-.097.45-.484.777-.946.777-.551 0-.998-.447-.998-.998 0-.256.098-.49.264-.672l1.01-4.717c-1.848-.342-3.27-1.822-3.27-3.606 0-1.023.827-1.85 1.85-1.85.839 0 1.547.561 1.77 1.339 1.115-.558 2.457-.899 3.906-.948l.745-3.481.045-.015a1.25 1.25 0 0 1 1.498.922z"/></svg></div>
                 <span class="tile-label">Reddit</span>
             </a>
             <a href="#" class="tile wide bg-teal">
-                <div class="tile-icon"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-8V6l8 5 8-5v2z"/></svg></div>
                 <span class="tile-label">Personal Mail</span>
             </a>
             <a href="https://gemini.google.com" class="tile bg-blue">
-                <div class="tile-icon"><svg viewBox="0 0 24 24"><path d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5z"/></svg></div>
                 <span class="tile-label">Gemini</span>
             </a>
             <a href="#" class="tile bg-dark">
-                <div class="tile-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93z"/></svg></div>
                 <span class="tile-label">eBay</span>
             </a>
             <a href="#" class="tile bg-purple">
-                <div class="tile-icon"><svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg></div>
                 <span class="tile-label">Calendar</span>
             </a>
             <a href="#" class="tile bg-blue">
-                <div class="tile-icon"><svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg></div>
                 <span class="tile-label">OneDrive</span>
             </a>
         </div>
@@ -333,41 +378,85 @@
     <div id="work" class="metro-section active-tab">
         <div class="metro-grid">
             <a href="#" class="tile wide bg-blue">
-                <div class="tile-icon"><svg viewBox="0 0 24 24"><path d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5z"/></svg></div>
                 <span class="tile-label">CoPilot</span>
             </a>
             <a href="#" class="tile bg-teal">
-                <div class="tile-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93z"/></svg></div>
                 <span class="tile-label">SN Operations</span>
             </a>
             <a href="#" class="tile bg-teal">
-                <div class="tile-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93 z"/></svg></div>
                 <span class="tile-label">ServiceNow</span>
             </a>
             <a href="#" class="tile wide bg-purple">
-                <div class="tile-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93z"/></svg></div>
                 <span class="tile-label">Engagement and Experience Team</span>
             </a>
             <a href="#" class="tile bg-red">
-                <div class="tile-icon"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg></div>
                 <span class="tile-label">Adobe Status</span>
             </a>
             <a href="#" class="tile bg-blue">
-                <div class="tile-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93z"/></svg></div>
                 <span class="tile-label">Jira</span>
             </a>
             <a href="#" class="tile bg-dark">
-                <div class="tile-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93z"/></svg></div>
                 <span class="tile-label">Staff Portal</span>
             </a>
             <a href="#" class="tile bg-green">
-                <div class="tile-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93z"/></svg></div>
                 <span class="tile-label">Nura Space</span>
             </a>
         </div>
     </div>
 
     <script>
+        // Fetch Bitcoin Price in AUD
+        async function fetchBtcPrice() {
+            const priceElement = document.getElementById('btcPrice');
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=aud');
+                const data = await response.json();
+                if (data && data.bitcoin && data.bitcoin.aud) {
+                    priceElement.textContent = new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD' }).format(data.bitcoin.aud);
+                } else {
+                    priceElement.textContent = 'Unavailable';
+                }
+            } catch (error) {
+                priceElement.textContent = 'Error';
+            }
+        }
+
+        // Fetch Adelaide Weather (Using Open-Meteo Free API for Adelaide coordinates: -34.9285, 138.6007)
+        async function fetchWeather() {
+            const weatherElement = document.getElementById('weatherInfo');
+            try {
+                const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=-34.9285&longitude=138.6007&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=Australia%2FSadelaide');
+                const data = await response.json();
+                
+                if (data && data.current) {
+                    const currentTemp = Math.round(data.current.temperature_2m);
+                    const highTemp = Math.round(data.daily.temperature_2m_max[0]);
+                    const lowTemp = Math.round(data.daily.temperature_2m_min[0]);
+                    const weatherCode = data.current.weather_code;
+
+                    // Map WMO Weather interpretation codes to icons/labels
+                    let weatherIcon = '☀️';
+                    if (weatherCode >= 1 && weatherCode <= 3) weatherIcon = '⛅';
+                    else if (weatherCode >= 45 && weatherCode <= 48) weatherIcon = '🌫️';
+                    else if (weatherCode >= 51 && weatherCode <= 67) weatherIcon = '🌧️';
+                    else if (weatherCode >= 71 && weatherCode <= 77) weatherIcon = '🌨️';
+                    else if (weatherCode >= 95) weatherIcon = '⚡';
+
+                    weatherElement.innerHTML = `${weatherIcon} ${currentTemp}°C <span style="font-size:11px; color:#a0aec0; margin-left:4px;">(H: ${highTemp}° L: ${lowTemp}°)</span>`;
+                } else {
+                    weatherElement.textContent = 'Unavailable';
+                }
+            } catch (error) {
+                weatherElement.textContent = 'Error';
+            }
+        }
+
+        // Initial fetch and intervals (refresh weather every 15 mins, btc every 1 min)
+        fetchBtcPrice();
+        fetchWeather();
+        setInterval(fetchBtcPrice, 60000);
+        setInterval(fetchWeather, 900000);
+
         function switchTab(tabId, btnElement) {
             const sections = document.querySelectorAll('.metro-section');
             sections.forEach(sec => sec.classList.remove('active-tab'));
