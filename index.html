@@ -65,10 +65,6 @@
             gap: 6px;
         }
 
-        .weather-icon {
-            font-size: 16px;
-        }
-
         /* --- Google Section Styles --- */
         .search-container {
             width: 100%;
@@ -356,19 +352,19 @@
             <a href="https://reddit.com" class="tile bg-orange">
                 <span class="tile-label">Reddit</span>
             </a>
-            <a href="#" class="tile wide bg-teal">
+            <a href="https://outlook.live.com/owa/?path=/mail/inbox" class="tile wide bg-teal">
                 <span class="tile-label">Personal Mail</span>
             </a>
             <a href="https://gemini.google.com" class="tile bg-blue">
                 <span class="tile-label">Gemini</span>
             </a>
-            <a href="#" class="tile bg-dark">
+            <a href="https://www.ebay.com.au/" class="tile bg-dark">
                 <span class="tile-label">eBay</span>
             </a>
-            <a href="#" class="tile bg-purple">
+            <a href="https://calendar.google.com/calendar/r?tab=oc" class="tile bg-purple">
                 <span class="tile-label">Calendar</span>
             </a>
-            <a href="#" class="tile bg-blue">
+            <a href="https://onedrive.live.com/?id=root&cid=66B371CF6722591A" class="tile bg-blue">
                 <span class="tile-label">OneDrive</span>
             </a>
         </div>
@@ -377,28 +373,28 @@
     <!-- TAB 2: WORK CONTENT (Default Active) -->
     <div id="work" class="metro-section active-tab">
         <div class="metro-grid">
-            <a href="#" class="tile wide bg-blue">
+            <a href="https://m365.cloud.microsoft/chat/" class="tile wide bg-blue">
                 <span class="tile-label">CoPilot</span>
             </a>
-            <a href="#" class="tile bg-teal">
+            <a href="https://serviceshub.adelaide.edu.au/now/sow/home" class="tile bg-teal">
                 <span class="tile-label">SN Operations</span>
             </a>
-            <a href="#" class="tile bg-teal">
+            <a href="https://serviceshub.adelaide.edu.au/esc" class="tile bg-teal">
                 <span class="tile-label">ServiceNow</span>
             </a>
-            <a href="#" class="tile wide bg-purple">
+            <a href="https://uao365.sharepoint.com/sites/CORP-IT-EES/SitePages/Home.aspx" class="tile wide bg-purple">
                 <span class="tile-label">Engagement and Experience Team</span>
             </a>
-            <a href="#" class="tile bg-red">
+            <a href="https://status.adobe.com/" class="tile bg-red">
                 <span class="tile-label">Adobe Status</span>
             </a>
-            <a href="#" class="tile bg-blue">
+            <a href="https://adelaideuni.atlassian.net/jira/for-you" class="tile bg-blue">
                 <span class="tile-label">Jira</span>
             </a>
-            <a href="#" class="tile bg-dark">
+            <a href="https://staff.adelaide.edu.au/" class="tile bg-purple">
                 <span class="tile-label">Staff Portal</span>
             </a>
-            <a href="#" class="tile bg-green">
+            <a href="https://dashboard.nuraspace.com/live" class="tile bg-dark">
                 <span class="tile-label">Nura Space</span>
             </a>
         </div>
@@ -421,11 +417,11 @@
             }
         }
 
-        // Fetch Adelaide Weather (Using Open-Meteo Free API for Adelaide coordinates: -34.9285, 138.6007)
+        // Fetch Adelaide Weather using Open-Meteo best_match (BoM-backed local model)
         async function fetchWeather() {
             const weatherElement = document.getElementById('weatherInfo');
             try {
-                const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=-34.9285&longitude=138.6007&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=Australia%2FSadelaide');
+                const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=-34.9285&longitude=138.6007&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=Australia%2FSydney');
                 const data = await response.json();
                 
                 if (data && data.current) {
@@ -434,7 +430,6 @@
                     const lowTemp = Math.round(data.daily.temperature_2m_min[0]);
                     const weatherCode = data.current.weather_code;
 
-                    // Map WMO Weather interpretation codes to icons/labels
                     let weatherIcon = '☀️';
                     if (weatherCode >= 1 && weatherCode <= 3) weatherIcon = '⛅';
                     else if (weatherCode >= 45 && weatherCode <= 48) weatherIcon = '🌫️';
@@ -451,7 +446,6 @@
             }
         }
 
-        // Initial fetch and intervals (refresh weather every 15 mins, btc every 1 min)
         fetchBtcPrice();
         fetchWeather();
         setInterval(fetchBtcPrice, 60000);
